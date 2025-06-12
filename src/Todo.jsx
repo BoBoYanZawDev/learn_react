@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Todolist from "./components/todolist";
 export default function Todo() {
   let [todo, setTodo] = useState([
     {
@@ -21,20 +21,7 @@ export default function Todo() {
   return (
     <div>
         <h1>To Do List</h1>
-        <ul>
-      {todo.map((item) => (
-        <li key={item.id}>
-            {item.completed ? <strike>{item.title}</strike> : item.title}
-            </li>
-      ))}
-        </ul>
-      <button
-        onClick={() => {
-          setTodo();
-        }}
-      >
-        Change Second Todo
-      </button>
+        <Todolist todo={todo} setTodo={setTodo}></Todolist>
     </div>
   );
 }

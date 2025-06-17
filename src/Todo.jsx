@@ -18,10 +18,27 @@ export default function Todo() {
       completed: false,
     },
   ]);
+  let [name,setName] = useState('');
+  let toDoCreate = (e) => {
+    e.preventDefault();
+    setTodo([...todo,{
+      id : todo.length + 1,
+      title : name,
+      completed: false 
+    }]) ;
+    setName('');
+  }
+  
   return (
     <div>
         <h1>To Do List</h1>
-        <Todolist todo={todo} setTodo={setTodo}></Todolist>
+        <Todolist todo={todo} setTodo={setTodo} toDoCreate={toDoCreate}></Todolist>
+        <form action="" onSubmit={toDoCreate}>
+      <input type="text" name='name' value={name} onChange={e => setName(e.target.value)}/>
+      <button>
+        Submit
+      </button>
+      </form>
     </div>
   );
 }

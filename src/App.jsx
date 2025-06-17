@@ -1,18 +1,8 @@
-import { useState } from "react";
-import Counter from "./Counter.jsx";
-import Todo from "./Todo.jsx";
-import icon from "./assets/consultant.png"
-function App() {
 
+export default function App() {
   return (
     <div>
-      <img src={icon} alt="" />
-      {/* <h1>Hello {name}</h1> */}
-      {/* <Counter></Counter> */}
-      <Todo></Todo> 
- 
+      <p className="text-red-400">Hello</p>
     </div>
   )
 }
-
-export default App;

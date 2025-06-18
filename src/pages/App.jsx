@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import ProductCard from "./components/ProductCard"
-import Navbar from "./components/Navbar";
+import ProductCard from "../components/ProductCard"
 
 export default function App() {
   let [products,setProducts] = useState([]);
@@ -15,7 +14,8 @@ export default function App() {
       if(!search){
         fetch('https://fakestoreapi.com/products')
         .then(response => response.json())
-        .then(data => setProducts(data));
+        .then(data => setProducts(data))
+        return;
       }
       let filteredProduct = products.filter(p => p.title.toLowerCase().includes(search.toLowerCase()));
       setProducts(filteredProduct);
@@ -24,7 +24,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar productBySearch={productBySearch}/>
       {/* Main Content */}
       <main className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

@@ -17,10 +17,10 @@ function ProductDetail() {
   
   useEffect(()=>{
     setLoading(true);
-    fetch('https://fakestoreapi.com/products/'+id)
+    fetch('http://react-ecommerce-api-main.test/api/products/'+id)
     .then(response => response.json())
     .then(data => {
-      setProduct(data);
+      setProduct(data.product);
       setLoading(false);
     })
     .catch(error => {
@@ -137,8 +137,8 @@ function ProductDetail() {
             <div className="space-y-4">
               <div className="aspect-w-1 aspect-h-1 w-full">
                 <img
-                  src={product.image}
-                  alt={product.title}
+                  src={product.images[0].url}
+                  alt={product.name}
                   className="w-full h-96 object-contain rounded-lg bg-gray-100"
                 />
               </div>
@@ -169,9 +169,9 @@ function ProductDetail() {
             {/* Product Info */}
             <div className="space-y-6">
               <div>
-                <span className="text-sm text-blue-600 font-medium mb-2 block">{product.category}</span>
+                <span className="text-sm text-blue-600 font-medium mb-2 block">{product.category.name}</span>
                 <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                  {product.title}
+                  {product.name}
                 </h1>
                 <div className="flex items-center space-x-2 mb-4">
                   <div className="flex items-center">
@@ -186,7 +186,7 @@ function ProductDetail() {
                       </svg>
                     ))}
                   </div>
-                  <span className="text-gray-600">{product.rating?.rate} ({product.rating?.count} reviews)</span>
+                  {/* <span className="text-gray-600">{product.rating?.rate} ({product.rating?.count} reviews)</span> */}
                 </div>
               </div>
 

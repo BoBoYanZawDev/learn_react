@@ -4,15 +4,16 @@ import ProductCard from "../components/ProductCard"
 export default function App() {
   let [products,setProducts] = useState([]);
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
+    fetch('http://react-ecommerce-api-main.test/api/products')
     .then(response => response.json())
-    .then(data => setProducts(data));
+    .then(data => {
+      setProducts(data.products)});
   },[]);
 
   let productBySearch = (search)=>{
     setTimeout(() => {
       if(!search){
-        fetch('https://fakestoreapi.com/products')
+        fetch('http://react-ecommerce-api-main.test/products')
         .then(response => response.json())
         .then(data => setProducts(data))
         return;

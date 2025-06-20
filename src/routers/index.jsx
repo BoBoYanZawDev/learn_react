@@ -4,6 +4,7 @@ import Profile from "../pages/Profile";
 import Layout from "../Layout";
 import ProductDetail from "../pages/ProductDetail";
 import NotFound from "../components/NotFound";
+import Register from "../pages/Register";
 
 let router = createBrowserRouter([
   {
@@ -13,6 +14,14 @@ let router = createBrowserRouter([
       {
         path: "/",
         Component: App,
+      },
+      {
+        path: "/register",
+        Component: Register,
+      },
+      {
+        path: "/login",
+        Component: Register,
       },
       {
         path: "/product/:id",

@@ -5,6 +5,7 @@ import Layout from "../Layout";
 import ProductDetail from "../pages/ProductDetail";
 import NotFound from "../components/NotFound";
 import Register from "../pages/Register";
+import SignIn from "../pages/SignIn";
 
 let router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ let router = createBrowserRouter([
       },
       {
         path: "/login",
-        Component: Register,
+        Component: SignIn,
       },
       {
         path: "/product/:id",

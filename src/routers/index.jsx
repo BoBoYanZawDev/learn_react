@@ -6,6 +6,7 @@ import ProductDetail from "../pages/ProductDetail";
 import NotFound from "../components/NotFound";
 import Register from "../pages/Register";
 import SignIn from "../pages/SignIn";
+import CheckOut from "../pages/CheckOut";
 
 let router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ let router = createBrowserRouter([
       {
         path: "/login",
         Component: SignIn,
+      },
+      {
+        path: "/checkout",
+        Component: CheckOut,
       },
       {
         path: "/product/:id",

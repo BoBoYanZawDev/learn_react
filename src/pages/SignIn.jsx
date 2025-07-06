@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../components/AuthContextProvider";
 import axios from "axios";
+import { AuthContext } from "../components/contexts/AuthContextProvider";
 
 function SignIn() {
   let [formData, setFormData] = useState({

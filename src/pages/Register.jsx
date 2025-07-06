@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../components/AuthContextProvider";
+import { AuthContext } from "../components/contexts/AuthContextProvider";
 
 function Register() {
   let [formData, setFormData] = useState({

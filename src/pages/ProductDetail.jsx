@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
+import { cartContext } from '../components/contexts/CartContextProvider';
+import ProductDetailSke from './ProductDetailSke';
 
 function ProductDetail() {
+  let navigate = useNavigate();
   let {id} = useParams();
   let [product,setProduct] = useState(null);
   let [loading, setLoading] = useState(true);
   let [count,setCount] = useState(1);
-  
+  let {cartItems,setCartItems} = useContext(cartContext);
   let  incressment = () => {
       setCount(count +1 );
   }
@@ -15,6 +18,27 @@ function ProductDetail() {
       setCount(count -1 );
   }
   
+  let addToCart = () => {
+    let newItem = {
+      ...product,
+      quantity:count
+    }
+    let exitingItem = cartItems.find(item => item.id === newItem.id);
+    let items = [...cartItems];
+    if(exitingItem){
+      exitingItem.quantity += count;
+      items = [...cartItems.filter(item => item.id !== newItem.id),exitingItem];
+      setCartItems(items);
+      localStorage.setItem('cartItems',JSON.stringify(items));
+      navigate('/checkout');
+      return;
+    }
+    items.push(newItem);
+    localStorage.setItem('cartItems',JSON.stringify(items));
+    setCartItems(items);
+    navigate('/checkout');
+  }
+
   useEffect(()=>{
     setLoading(true);
     fetch('http://react-ecommerce-api-main.test/api/products/'+id)
@@ -32,89 +56,7 @@ function ProductDetail() {
   // Loading UI
   if(loading) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
-              {/* Loading Image */}
-              <div className="space-y-4">
-                <div className="w-full h-96 bg-gray-200 rounded-lg animate-pulse"></div>
-              </div>
-
-              {/* Loading Content */}
-              <div className="space-y-6">
-                <div>
-                  <div className="w-24 h-4 bg-gray-200 rounded animate-pulse mb-2"></div>
-                  <div className="w-full h-8 bg-gray-200 rounded animate-pulse mb-4"></div>
-                  <div className="flex items-center space-x-2 mb-4">
-                    <div className="flex space-x-1">
-                      {[...Array(5)].map((_, i) => (
-                        <div key={i} className="w-5 h-5 bg-gray-200 rounded animate-pulse"></div>
-                      ))}
-                    </div>
-                    <div className="w-20 h-4 bg-gray-200 rounded animate-pulse"></div>
-                  </div>
-                </div>
-
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-24 h-8 bg-gray-200 rounded animate-pulse"></div>
-                  </div>
-                  <div className="w-32 h-4 bg-gray-200 rounded animate-pulse"></div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <div className="w-16 h-5 bg-gray-200 rounded animate-pulse mb-2"></div>
-                    <div className="flex space-x-3">
-                      {[...Array(4)].map((_, i) => (
-                        <div key={i} className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"></div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="w-20 h-5 bg-gray-200 rounded animate-pulse mb-2"></div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-200 rounded animate-pulse"></div>
-                      <div className="w-8 h-6 bg-gray-200 rounded animate-pulse"></div>
-                      <div className="w-10 h-10 bg-gray-200 rounded animate-pulse"></div>
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-4">
-                    <div className="flex-1 h-12 bg-gray-200 rounded animate-pulse"></div>
-                    <div className="flex-1 h-12 bg-gray-200 rounded animate-pulse"></div>
-                  </div>
-
-                  <div className="w-full h-12 bg-gray-200 rounded animate-pulse"></div>
-                </div>
-
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="w-32 h-5 bg-gray-200 rounded animate-pulse mb-4"></div>
-                  <div className="space-y-3">
-                    <div className="w-full h-4 bg-gray-200 rounded animate-pulse"></div>
-                    <div className="w-3/4 h-4 bg-gray-200 rounded animate-pulse"></div>
-                    <div className="w-5/6 h-4 bg-gray-200 rounded animate-pulse"></div>
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    {[...Array(6)].map((_, i) => (
-                      <div key={i} className="w-2/3 h-3 bg-gray-200 rounded animate-pulse"></div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="flex items-center justify-between">
-                    <div className="w-40 h-3 bg-gray-200 rounded animate-pulse"></div>
-                    <div className="w-32 h-3 bg-gray-200 rounded animate-pulse"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProductDetailSke/>
     );
   }
 
@@ -137,7 +79,7 @@ function ProductDetail() {
             <div className="space-y-4">
               <div className="aspect-w-1 aspect-h-1 w-full">
                 <img
-                  src={product.images[0].url}
+                  src={product.images[0]?.url}
                   alt={product.name}
                   className="w-full h-96 object-contain rounded-lg bg-gray-100"
                 />
@@ -232,7 +174,7 @@ function ProductDetail() {
                 </div>
 
                 <div className="flex space-x-4">
-                  <button className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                  <button onClick={addToCart} className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
                     Add to Cart
                   </button>
                   <button className="flex-1 bg-gray-100 text-gray-900 py-3 px-6 rounded-md font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors">

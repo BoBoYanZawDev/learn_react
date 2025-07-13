@@ -28,11 +28,13 @@ function ProductDetail() {
     if(exitingItem){
       exitingItem.quantity += count;
       items = [...cartItems.filter(item => item.id !== newItem.id),exitingItem];
+      items.reverse(); 
       setCartItems(items);
       localStorage.setItem('cartItems',JSON.stringify(items));
       navigate('/checkout');
       return;
     }
+    items.reverse(); 
     items.push(newItem);
     localStorage.setItem('cartItems',JSON.stringify(items));
     setCartItems(items);

@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router";
 import router from "./routers";
 import { AuthContextProvider } from "./components/contexts/AuthContextProvider";
 import { CartContextProvider } from "./components/contexts/CartContextProvider";
+import "@ant-design/v5-patch-for-react-19";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -52,7 +52,7 @@ function Navbar({productBySearch}) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
-                  {cartItems.length}
+                  {cartItems.length ?? 0}
                 </span>
               </Link>
               <Link to={'/profile'} className="text-gray-700 hover:text-indigo-600">
